@@ -96,7 +96,7 @@ open class KamiGuiChat(startStringIn: String, historyBufferIn: String?, sentHist
     private fun getCommand(string: String): Command? {
         val treeMap = TreeMap<String, Command>()
 
-        for (command in KamiMod.INSTANCE.commandManager.commands) {
+        for (command in KamiMod.Instance.commandManager.commands) {
             if (command.label.startsWith(string, true)) {
                 treeMap[command.label] = command
             } else {

@@ -46,13 +46,13 @@ object ForgeEventProcessor {
                 prevWidth = mc.displayWidth
                 prevHeight = mc.displayHeight
                 KamiEventBus.post(ResolutionUpdateEvent(mc.displayWidth, mc.displayHeight))
-                for (component in KamiMod.INSTANCE.guiManager.children) {
+                for (component in KamiMod.Instance.guiManager.children) {
                     if (component !is Frame) continue
                     KamiGUI.dock(component)
                 }
             }
             if (mc.world != null && mc.player != null) {
-                KamiMod.INSTANCE.guiManager.callTick(KamiMod.INSTANCE.guiManager)
+                KamiMod.Instance.guiManager.callTick(KamiMod.Instance.guiManager)
             }
         }
     }
@@ -109,7 +109,7 @@ object ForgeEventProcessor {
         event.isCanceled = true
         try {
             mc.ingameGUI.chatGUI.addToSentMessages(event.message)
-            if (event.message.length > 1) KamiMod.INSTANCE.commandManager.callCommand(event.message.substring(Command.getCommandPrefix().length - 1))
+            if (event.message.length > 1) KamiMod.Instance.commandManager.callCommand(event.message.substring(Command.getCommandPrefix().length - 1))
             else MessageSendHelper.sendChatMessage("Please enter a command!")
         } catch (e: Exception) {
             e.printStackTrace()

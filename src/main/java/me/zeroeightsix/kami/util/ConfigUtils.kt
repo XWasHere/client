@@ -30,8 +30,8 @@ object ConfigUtils {
 
         success = FriendManager.loadFriends() && success
 
-        KamiMod.INSTANCE.guiManager = KamiGUI()
-        KamiMod.INSTANCE.guiManager.initializeGUI()
+        KamiMod.Instance.guiManager = KamiGUI()
+        KamiMod.Instance.guiManager.initializeGUI()
         KamiMod.LOG.info("Gui loaded")
 
         success = loadConfiguration() && success
@@ -138,9 +138,9 @@ object ConfigUtils {
         val kamiConfig = Paths.get(kamiConfigName)
         if (!Files.exists(kamiConfig)) return
         Configuration.loadConfiguration(kamiConfig)
-        val gui = KamiMod.INSTANCE.guiStateSetting.value
+        val gui = KamiMod.Instance.guiStateSetting.value
         for ((key, value) in gui.entrySet()) {
-            val optional = KamiMod.INSTANCE.guiManager.children.stream()
+            val optional = KamiMod.Instance.guiManager.children.stream()
                     .filter { component: Component? -> component is Frame }
                     .filter { component: Component -> (component as Frame).title == key }
                     .findFirst()
@@ -158,7 +158,7 @@ object ConfigUtils {
                 System.err.println("Found GUI config entry for $key, but found no frame with that name")
             }
         }
-        for (component in KamiMod.INSTANCE.guiManager.children) {
+        for (component in KamiMod.Instance.guiManager.children) {
             if (component !is Frame) continue
             if (!component.isPinnable || !component.isVisible) continue
             component.opacity = 0f
@@ -168,7 +168,7 @@ object ConfigUtils {
     @Throws(IOException::class)
     private fun saveConfigurationUnsafe() {
         val jsonObject = JsonObject()
-        KamiMod.INSTANCE.guiManager.children.stream()
+        KamiMod.Instance.guiManager.children.stream()
                 .filter { component: Component? -> component is Frame }
                 .map { component: Component? -> component as Frame? }
                 .forEach { frame ->
@@ -180,7 +180,7 @@ object ConfigUtils {
                     frameObject.add("pinned", JsonPrimitive(frame.isPinned))
                     jsonObject.add(frame.title, frameObject)
                 }
-        KamiMod.INSTANCE.guiStateSetting.value = jsonObject
+        KamiMod.Instance.guiStateSetting.value = jsonObject
         val outputFile = Paths.get(getConfigName())
         if (!Files.exists(outputFile)) Files.createFile(outputFile)
         Configuration.saveConfiguration(outputFile)
