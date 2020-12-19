@@ -25,10 +25,9 @@ import javax.annotation.Nullable;
 import java.io.File;
 
 @Mod(
-        modid = "kamiblue",
-        name = "KAMI Blue",
-        version = "1.12.01",
-        acceptedMinecraftVersions = "[1.12.2]"
+        modid = KamiMod.ID,
+        name = KamiMod.NAME,
+        version = KamiMod.VERSION
 )
 public class KamiMod {
 
@@ -51,8 +50,8 @@ public class KamiMod {
     public static final String DIRECTORY = "kamiblue/";
     public static final Logger LOG = LogManager.getLogger("KAMI Blue");
 
-    @Mod.Instance(ID)
-    public static KamiMod Instance;
+    @Mod.Instance
+    public static KamiMod INSTANCE;
     public static Thread MAIN_THREAD;
 
     private KamiGUI guiManager;
