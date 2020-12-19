@@ -9,10 +9,11 @@ import me.zeroeightsix.kami.setting.Setting
 import me.zeroeightsix.kami.setting.Settings
 import me.zeroeightsix.kami.util.BaritoneUtils
 import me.zeroeightsix.kami.util.TimerUtils
-import me.zeroeightsix.kami.util.event.listener
 import me.zeroeightsix.kami.util.math.Direction
 import me.zeroeightsix.kami.util.text.MessageSendHelper
+import net.minecraft.util.MovementInputFromOptions
 import net.minecraftforge.client.event.InputUpdateEvent
+import org.kamiblue.event.listener.listener
 import kotlin.math.floor
 
 @Module.Info(
@@ -60,6 +61,8 @@ object AutoWalk : Module() {
         }
 
         listener<InputUpdateEvent>(6969) {
+            if (it.movementInput !is MovementInputFromOptions) return@listener
+
             when (mode.value) {
                 AutoWalkMode.FORWARD -> {
                     it.movementInput.moveForward = 1.0f
